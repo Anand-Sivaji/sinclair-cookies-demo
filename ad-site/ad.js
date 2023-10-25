@@ -2,12 +2,12 @@ const express = require('express');
 const app = express();
 const port = 8001;
 var path = require('path');
-var cookieParser = require('cookie-parser');
+const cookieParser = require('cookie-parser');
+const fs = require('fs');
 
 app.use(cookieParser());
 app.use(express.json());
 const userBehaviors = [];
-var hits = 0;
 
 app.get('/', (req, res) => res.send('Hello World!'))
 
@@ -80,7 +80,6 @@ app.get('/api/get-personalized-ads', function (req, res) {
 //on getting a GET request, a cookie will be set if it does not exist yet, otherwise it will be logged
 app.get('/banner', function (req, res) {
     
-    hits++;
     if (!req.cookies['ad-site-cookie']) {
 
         var cookievalue = req.query.location ? req.query.location : "default";
