@@ -7,13 +7,14 @@ var cookieParser = require('cookie-parser');
 app.use(cookieParser());
 app.use(express.json());
 const userBehaviors = [];
+const hits = 0;
 
 app.get('/', (req, res) => res.send('Hello World!'))
 
 // API to get a session ID
 app.post('/api/get-session-id', (req, res) => {
    
-    if (!req.cookies['sessionId']) {
+    if (!req.cookies['sessionID']) {
 
        // Generate a session ID (you can replace this with a more robust method)
         const sessionID = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
@@ -55,6 +56,9 @@ app.get('/banner', function (req, res) {
 
         var cookievalue = req.query.location ? req.query.location : "default";
         res.setHeader('Set-Cookie', 'ad-site-cookie=' + cookievalue + '; SameSite=None; Secure; Path=/; Partitioned;');
+        
+        const sessionID = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+        res.setHeader('Set-Cookie', 'sessionID=' + sessionID + '; SameSite=None; Secure; Path=/; Partitioned;');
 
         if (req.query.location == 'default') {
             res.sendFile(path.join(__dirname + "/default.png"))
