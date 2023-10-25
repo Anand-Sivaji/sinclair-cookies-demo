@@ -8,7 +8,18 @@ const cors = require('cors');
 
 app.use(cookieParser());
 app.use(express.json());
-app.use(cors());
+
+
+// Define an array of allowed origins
+const allowedOrigins = [
+    'http://localhost:3001'
+];
+
+// Enable CORS with the array of allowed origins
+app.use(cors({
+    origin: allowedOrigins,
+}));
+
 let userBehaviors = [];
 
 app.get('/', (req, res) => res.send('Hello World!'))
