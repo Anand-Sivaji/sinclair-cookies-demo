@@ -23,6 +23,18 @@ app.post('/api/get-session-id', (req, res) => {
     }
 });
 
+// API to get a session ID
+app.get('/api/get-session-id', (req, res) => {
+   
+    if (!req.cookies['sessionID']) {
+
+        // Generate a session ID (you can replace this with a more robust method)
+        const sessionID = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+        res.setHeader('Set-Cookie', 'sessionID=' + sessionID + '; SameSite=None; Secure; Path=/; Partitioned;');
+        res.json({ sessionID });
+    }
+});
+
 // API to post user behavior data
 app.post('/api/track-user-behavior', (req, res) => {
     const behaviorData = req.body;
