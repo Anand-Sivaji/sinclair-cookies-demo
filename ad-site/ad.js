@@ -27,8 +27,8 @@ app.post('/api/get-session-id', (req, res) => {
 app.post('/api/track-user-behavior', (req, res) => {
     
     console.log("Request Body");
-    console.log(req);
     console.log(req.body);
+    
     var sessionID;
     if (!req.cookies['sessionID']) {
         console.log("Session ID is not available");
