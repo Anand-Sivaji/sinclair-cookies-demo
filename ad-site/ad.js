@@ -7,7 +7,7 @@ const fs = require('fs');
 
 app.use(cookieParser());
 app.use(express.json());
-const userBehaviors = [];
+let userBehaviors = [];
 
 app.get('/', (req, res) => res.send('Hello World!'))
 
@@ -28,9 +28,11 @@ app.post('/api/track-user-behavior', (req, res) => {
     
     var sessionID;
     if (!req.cookies['sessionID']) {
+        console.log("Session ID is not available");
         return res.json({ message: 'User behavior data received and stored.' });
     }
 
+    console.log("Storing the user behavior for Session ID" + req.cookies['sessionID']);
     const behaviorData = {
         userId: req.cookies['sessionID'],
         behaviorData: req.body
