@@ -51,7 +51,7 @@ app.post('/api/track-user-behavior', (req, res) => {
 
     console.log("Storing the user behavior for Session ID" + req.cookies['sessionID']);
     const behaviorData = {
-        userId: req.cookies['sessionID'],
+        sessionID: req.cookies['sessionID'],
         behaviorData: req.body
     }
     console.log("User Behavior");
@@ -70,9 +70,11 @@ app.get('/api/get-personalized-ads', function (req, res) {
     if (!req.cookies['sessionID']) {
         console.log("Session ID not available and setting a new one");
         const sessionID = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-        res.setHeader('Set-Cookie', 'sessionID=' + sessionID + '; SameSite=None; Secure; Path=/;');
+        res.setHeader('Set-Cookie', 'sessionID=' + sessionID + '; SameSite=None; Secure; Max-Age=86400; Path=/;');
     } else {
-        console.log("Session ID is available");
+        const sessionID = req.cookies['sessionID'];
+        console.log("Session ID is available" + sessionID);
+        getProductNamesForSessionIDs(sessionID);
     }
         
     // Specify the directory containing your files
@@ -98,36 +100,23 @@ app.get('/api/get-personalized-ads', function (req, res) {
     
 });
 
-//on getting a GET request, a cookie will be set if it does not exist yet, otherwise it will be logged
-app.get('/banner', function (req, res) {
-    
-    if (!req.cookies['ad-site-cookie']) {
+// Function to filter and extract product IDs
+function getProductNamesForSessionIDs(sessionID) {
 
-        var cookievalue = req.query.location ? req.query.location : "default";
-        res.setHeader('Set-Cookie', 'ad-site-cookie=' + cookievalue + '; SameSite=None; Secure; Path=/; Partitioned;');
-        
-        const sessionID = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-        res.setHeader('Set-Cookie', 'sessionID=' + sessionID + '; SameSite=None; Secure; Path=/; Partitioned;');
+    const currentTime = new Date(); // Get the current time
+    const twentyFourHoursAgo = new Date(currentTime - 24 * 60 * 60 * 1000); // Calculate 24 hours ago
+  
+    const filteredData = userBehaviors.filter((entry) => {
+      return (
+        entry.sessionID === sessionID &&
+        new Date(entry.behaviorData.timestamp) >= twentyFourHoursAgo
+      );
+    });
+  
+    const productIDs = [...new Set(filteredData.map((item) => item.behaviorData.productName))];
 
-        if (req.query.location == 'default') {
-            res.sendFile(path.join(__dirname + "/default.png"))
-        } else {
-            res.sendFile(path.join(__dirname + "/sponser.png"));
-        }
-    } else {
-        
-        if (req.query.location != 'default') {
-            var cookievalue = req.query.location ? req.query.location : "default";
-            res.setHeader('Set-Cookie', 'ad-site-cookie=' + cookievalue + '; SameSite=None; Secure; Path=/; Partitioned;');
-        }
-        if (req.cookies['ad-site-cookie'] == 'default') {
-            res.sendFile(path.join(__dirname + "/default.png"))
-        } else {
-            res.sendFile(path.join(__dirname + "/sponser.png"));
-        }
-        
-        console.log(req.cookies);
-    }
-});
+    console.log(productNames);
+    return productNames;
+  }
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
