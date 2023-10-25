@@ -72,9 +72,11 @@ app.get('/api/get-personalized-ads', function (req, res) {
             randomFileName = fileNames[randomIndex];
     
             console.log('Randomly selected file:', randomFileName);
+
+            res.sendFile(path.join(directoryPath + "/" + randomFileName));
         }
     });
-    res.sendFile(path.join(directoryPath + "/" + randomFileName));
+    
 });
 
 //on getting a GET request, a cookie will be set if it does not exist yet, otherwise it will be logged
