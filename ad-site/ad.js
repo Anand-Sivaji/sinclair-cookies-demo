@@ -16,7 +16,7 @@ app.post('/api/get-session-id', (req, res) => {
    
     if (!req.cookies['sessionID']) {
 
-       // Generate a session ID (you can replace this with a more robust method)
+        // Generate a session ID (you can replace this with a more robust method)
         const sessionID = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
         res.setHeader('Set-Cookie', 'sessionID=' + sessionID + '; SameSite=None; Secure; Path=/; Partitioned;');
         res.json({ sessionID });
@@ -38,8 +38,8 @@ app.get('/api/get-personalized-ads', (req, res) => {
     
     const ad = 'This is a general ad for you!';
     // Retrieve the session ID from the request query or headers
-    if (!req.cookies['sessionId']) {
-        const sessionID = req.cookies['sessionId'];
+    if (!req.cookies['sessionID']) {
+        const sessionID = req.cookies['sessionID'];
 
         // In a real system, you would analyze user behavior data to serve personalized ads
         // Here, we'll just return a dummy ad
