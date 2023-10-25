@@ -58,7 +58,7 @@ app.get('/api/get-personalized-ads', function (req, res) {
         
     // Specify the directory containing your files
     const directoryPath = __dirname + '/general-ads';
-    const randomFileName = 'salesforce.png';
+    var randomFileName = 'salesforce.png';
     fs.readdir(directoryPath, (err, files) => {
         
         if (err) {
