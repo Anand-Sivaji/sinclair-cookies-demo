@@ -61,6 +61,35 @@ app.get('/api/get-personalized-ads', (req, res) => {
 });
 
 //on getting a GET request, a cookie will be set if it does not exist yet, otherwise it will be logged
+app.get('/api/get-personalized-ads', function (req, res) {
+    
+    if (!req.cookies['sessionID']) {
+
+        const sessionID = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+        res.setHeader('Set-Cookie', 'sessionID=' + sessionID + '; SameSite=None; Secure; Path=/;');
+
+        if (req.query.location == 'default') {
+            res.sendFile(path.join(__dirname + "/default.png"))
+        } else {
+            res.sendFile(path.join(__dirname + "/sponser.png"));
+        }
+    } else {
+        
+        if (req.query.location != 'default') {
+            var cookievalue = req.query.location ? req.query.location : "default";
+            res.setHeader('Set-Cookie', 'ad-site-cookie=' + cookievalue + '; SameSite=None; Secure; Path=/; Partitioned;');
+        }
+        if (req.cookies['ad-site-cookie'] == 'default') {
+            res.sendFile(path.join(__dirname + "/default.png"))
+        } else {
+            res.sendFile(path.join(__dirname + "/sponser.png"));
+        }
+        
+        console.log(req.cookies);
+    }
+});
+
+//on getting a GET request, a cookie will be set if it does not exist yet, otherwise it will be logged
 app.get('/banner', function (req, res) {
     
     hits++;
