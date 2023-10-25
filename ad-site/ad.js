@@ -7,7 +7,7 @@ var cookieParser = require('cookie-parser');
 app.use(cookieParser());
 app.use(express.json());
 const userBehaviors = [];
-const hits = 0;
+var hits = 0;
 
 app.get('/', (req, res) => res.send('Hello World!'))
 
