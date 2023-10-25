@@ -4,9 +4,11 @@ const port = 8001;
 var path = require('path');
 const cookieParser = require('cookie-parser');
 const fs = require('fs');
+const cors = require('cors');
 
 app.use(cookieParser());
 app.use(express.json());
+app.use(cors());
 let userBehaviors = [];
 
 app.get('/', (req, res) => res.send('Hello World!'))
