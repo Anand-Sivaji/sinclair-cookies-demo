@@ -46,47 +46,35 @@ app.post('/api/track-user-behavior', (req, res) => {
 });
 
 // API to get personalized ads based on the session ID
-app.get('/api/get-personalized-ads', (req, res) => {
-    
-    const ad = 'This is a general ad for you!';
-    // Retrieve the session ID from the request query or headers
-    if (!req.cookies['sessionID']) {
-        const sessionID = req.cookies['sessionID'];
-
-        // In a real system, you would analyze user behavior data to serve personalized ads
-        // Here, we'll just return a dummy ad
-        const ad = 'This is a personalized ad for you!';
-    } 
-    res.json({ ad });
-});
-
-//on getting a GET request, a cookie will be set if it does not exist yet, otherwise it will be logged
 app.get('/api/get-personalized-ads', function (req, res) {
     
     if (!req.cookies['sessionID']) {
-
+        console.log("Session ID not available and setting a new one");
         const sessionID = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
         res.setHeader('Set-Cookie', 'sessionID=' + sessionID + '; SameSite=None; Secure; Path=/;');
-
-        if (req.query.location == 'default') {
-            res.sendFile(path.join(__dirname + "/default.png"))
-        } else {
-            res.sendFile(path.join(__dirname + "/sponser.png"));
-        }
     } else {
-        
-        if (req.query.location != 'default') {
-            var cookievalue = req.query.location ? req.query.location : "default";
-            res.setHeader('Set-Cookie', 'ad-site-cookie=' + cookievalue + '; SameSite=None; Secure; Path=/; Partitioned;');
-        }
-        if (req.cookies['ad-site-cookie'] == 'default') {
-            res.sendFile(path.join(__dirname + "/default.png"))
-        } else {
-            res.sendFile(path.join(__dirname + "/sponser.png"));
-        }
-        
-        console.log(req.cookies);
+        console.log("Session ID is available");
     }
+        
+    // Specify the directory containing your files
+    const directoryPath = __dirname + 'general-ads';
+    const randomFileName = 'salesforce.png';
+    fs.readdir(directoryPath, (err, files) => {
+        
+        if (err) {
+            console.error('Error reading directory:', err);
+        } else {
+            // Filter out any subdirectories, leaving only file names
+            const fileNames = files.filter(file => fs.statSync(`${directoryPath}/${file}`).isFile());
+    
+            // Pick a random file name
+            const randomIndex = Math.floor(Math.random() * fileNames.length);
+            randomFileName = fileNames[randomIndex];
+    
+            console.log('Randomly selected file:', randomFileName);
+        }
+    });
+    res.sendFile(path.join(directoryPath + "/" + randomFileName));
 });
 
 //on getting a GET request, a cookie will be set if it does not exist yet, otherwise it will be logged
