@@ -113,7 +113,7 @@ function getProductNamesForSessionIDs(sessionID) {
       );
     });
   
-    const productIDs = [...new Set(filteredData.map((item) => item.behaviorData.productName))];
+    const productNames = [...new Set(filteredData.map((item) => item.behaviorData.productName))];
 
     console.log(productNames);
     return productNames;
