@@ -18,6 +18,7 @@ const allowedOrigins = [
 // Enable CORS with the array of allowed origins
 app.use(cors({
     origin: allowedOrigins,
+    credentials: true
 }));
 
 let userBehaviors = [];
