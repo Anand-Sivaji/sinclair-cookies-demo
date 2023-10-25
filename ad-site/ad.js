@@ -26,6 +26,9 @@ app.post('/api/get-session-id', (req, res) => {
 // API to post user behavior data
 app.post('/api/track-user-behavior', (req, res) => {
     
+    console.log("Request Body");
+    console.log(req);
+    console.log(req.body);
     var sessionID;
     if (!req.cookies['sessionID']) {
         console.log("Session ID is not available");
@@ -37,7 +40,8 @@ app.post('/api/track-user-behavior', (req, res) => {
         userId: req.cookies['sessionID'],
         behaviorData: req.body
     }
-
+    console.log("User Behavior");
+    console.log(behaviorData)
     // Store user behavior data in memory
     userBehaviors.push(behaviorData);
     console.log("Added User Behavior");
