@@ -80,7 +80,7 @@ app.get('/api/get-personalized-ads', function (req, res) {
         console.log("Session ID is available" + sessionID);
         const productNames = getProductNamesForSessionIDs(sessionID);
         const randomIndex = Math.floor(Math.random() * productNames.length);
-        directoryPath = __dirname + '/' + productNames[randomIndex];
+        directoryPath = (productNames.length == 0) ? directoryPath : __dirname + '/' + productNames[randomIndex];
     }
         
     fs.readdir(directoryPath, (err, files) => {
