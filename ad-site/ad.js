@@ -67,6 +67,10 @@ app.post('/api/track-user-behavior', (req, res) => {
 // API to get personalized ads based on the session ID
 app.get('/api/get-personalized-ads', function (req, res) {
     
+    var directoryPath = __dirname + '/General Ads';
+    var randomFileName = 'salesforce.png';
+
+    // Specify the directory containing your files
     if (!req.cookies['sessionID']) {
         console.log("Session ID not available and setting a new one");
         const sessionID = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
@@ -74,12 +78,11 @@ app.get('/api/get-personalized-ads', function (req, res) {
     } else {
         const sessionID = req.cookies['sessionID'];
         console.log("Session ID is available" + sessionID);
-        getProductNamesForSessionIDs(sessionID);
+        const productNames = getProductNamesForSessionIDs(sessionID);
+        const randomIndex = Math.floor(Math.random() * productNames.length);
+        directoryPath = __dirname + '/' + productNames[randomIndex];
     }
         
-    // Specify the directory containing your files
-    const directoryPath = __dirname + '/general-ads';
-    var randomFileName = 'salesforce.png';
     fs.readdir(directoryPath, (err, files) => {
         
         if (err) {
