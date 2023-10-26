@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+    <title>Catwalk Store</title>
+</head>
+<body onload="getCookie()">
+    <!-- <div style="margin: auto;">Cookie: &nbsp; &nbsp; &nbsp;<span id = "cookie"> </span><div> -->
+    
+    <nav id="nav">
+      <!-- Logo, Search bar -->
+      <div class="navTop">
+          <div class="navItem">
+              <span class="shopTitle">Catwalk<span>
+          </div>
+          <div class="navItem">
+          </div>
+          <div class="navItem">
+              <span class="limitedOffer">Limited Offer!</span>
+          </div>
+
+      </div>
+      <div class="navBottom">
+          <h3 class="menuItem">AIR FORCE</h3>
+          <h3 class="menuItem">JORDAN</h3>
+          <h3 class="menuItem">BLAZER</h3>
+          <h3 class="menuItem">CRATER</h3>
+      </div>
+  </nav>
+
+  <!-- Slider -->
+  <div class="slider">
+      <div class="sliderWrapper">
+          <div class="sliderItem">
+              <img src="./air.png" style="
+              height: 230px;
+              position: absolute;
+              top: 80px;" alt="Nike Air Force" class="sliderImage">
+              <div class="sliderBgCircle"></div>
+              <h2 class="sliderPrice">$119</h2>
+              <a href="#product"><button class="buyButton">BUY NOW</button></a>
+            </div>
+          <div class="sliderItem">
+              <img src="./jordan.png" style="
+              height: 230px;
+              position: absolute;
+              top: 80px;" alt="Nike Jordan" class="sliderImage">
+              <div class="sliderBgCircle"></div>
+              <h2 class="sliderPrice">$149</h2>
+              <a href="#product"><button class="buyButton">BUY NOW</button></a>
+          </div>
+          <div class="sliderItem">
+              <img src="./blazer.png" style="
+              height: 230px;
+              position: absolute;
+              top: 80px;" alt="Nike Blazer" class="sliderImage">
+              <div class="sliderBgCircle"></div>
+              <h2 class="sliderPrice">$129</h2>
+              <a href="#product"><button class="buyButton">BUY NOW</button></a>
+          </div>
+          <div class="sliderItem">
+              <img src="./crater.png" style="
+              height: 230px;
+              position: absolute;
+              top: 80px;" alt="Nike Crater" class="sliderImage">
+              <div class="sliderBgCircle"></div>
+              <h2 class="sliderPrice">$109</h2>
+              
+              <a href="#product"><button class="buyButton">BUY NOW</button></a>
+          </div>
+      </div>
+  </div>
+  <footer class="footerAd">
+    <img id="adBanner" class = "adBanner" />
+  </footer>
+  <script src="script.js"></script>
+    </body>
+</html>
