@@ -76,7 +76,7 @@ app.get('/api/get-personalized-ads', function (req, res) {
     if (!req.cookies['sessionID']) {
         console.log("Session ID not available and setting a new one");
         const sessionID = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-        res.setHeader('Set-Cookie', 'sessionID=' + sessionID + '; SameSite=None; Secure; Max-Age=86400; Path=/;');
+        res.setHeader('Set-Cookie', 'sessionID=' + sessionID + '; SameSite=None; Secure; Max-Age=86400; Path=/; Partitioned;');
     } else {
         const sessionID = req.cookies['sessionID'];
         console.log("Session ID is available" + sessionID);
