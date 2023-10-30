@@ -9,7 +9,7 @@ app.use(cookieParser());
 
 //serves homeSite.html and sets first-party cookie
 app.get('/', function (req, res) {
-    res.cookie("shoesite-cookie", new Date().toISOString());
+    res.cookie("trendytrims-cookie", new Date().toISOString());
     res.sendFile(path.join(__dirname+"/home.html"));
 });
 
