@@ -92,7 +92,7 @@ const myImageElementWithPartitioned = document.getElementById('adBannerWithParti
 
 //reload ad banner
 setInterval(function() {
-  var time = new Date().getTime();
+  var time = new Date().getMilliseconds();
   myImageElement.src = `https://54.242.159.222.nip.io/api/get-personalized-ads?${time}`;
   myImageElementWithPartitioned.src = `https://107.21.76.35.nip.io/api/get-personalized-ads?${time}`;
 }, 2000);
