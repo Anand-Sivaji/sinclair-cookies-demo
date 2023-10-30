@@ -142,19 +142,19 @@ nav {
   border: 1px solid gray;
   z-index: 1;
 }
-#ad {
-  height:60px;
-}
+
 @media only screen and (height:90px) {
   /* 90 pixels high */
-  #ad {
+  #ad,
+  #adBannerWithPartitioned {
      height:90px;
      border: red;
   }
 }
 @media only screen and (height:125px) {
   /* 125 pixels high */
-  #ad {
+  #ad,
+  #adBannerWithPartitioned {
      height:125px;
   }
 }
@@ -215,13 +215,14 @@ nav {
 }
 
 .footerAd {
-  text-align: center;
   margin: auto;
-  width: 35%;
+  display: block;
+}
   
-  .adBanner {
-    height: 120px;
-  }
+.adBanner,
+.adBannerWithPartitioned {
+  height: 120px;
+  width: 600px
 }
 
 /* FEATURES */

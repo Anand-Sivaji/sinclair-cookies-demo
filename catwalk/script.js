@@ -88,11 +88,13 @@ const currentProductPrice = document.querySelector('.productPrice');
 const currentProductColors = document.querySelectorAll('.color');
 const currentProductSizes = document.querySelectorAll('.size');
 const myImageElement = document.getElementById('adBanner');
+const myImageElementWithPartitioned = document.getElementById('adBannerWithPartitioned');
 
 //reload ad banner
 setInterval(function() {
   var time = new Date();
   myImageElement.src = `https://54.242.159.222.nip.io/api/get-personalized-ads?${time}`;
+  myImageElementWithPartitioned.src = `https://107.21.76.35.nip.io/api/get-personalized-ads?${time}`;
 }, 2000);
 
 //sendXHRcalls for the 3rd party server
@@ -124,6 +126,35 @@ function trackUserInteraction(productViewed) {
   });
 }
 
+//sendXHRcalls for the 3rd party server
+function trackUserInteractionWithPartitionedAdServer(productViewed) {
+
+  const userInteractionData = {
+    pageViewed: document.title,
+    productName: productViewed,
+    timestamp: new Date()
+  };
+  const uri = 'https://107.21.76.35.nip.io/api/track-user-behavior';
+  // Send the data to the Advertisement Site via an API call
+  fetch(uri, {
+    method: 'POST',
+    mode: 'cors',
+    credentials: "include",
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(userInteractionData),
+  }).then(response => {
+    if (response.ok) {
+      console.log('User interaction data sent successfully.');
+    } else {
+      console.error('Failed to send user interaction data.');
+    }
+  }).catch(error => {
+    console.error('Error sending user interaction data: ' + error);
+  });
+}
+
 menuItems.forEach((item, index) => {
   item.addEventListener('click', () => {
     //changes the current slide
@@ -132,6 +163,7 @@ menuItems.forEach((item, index) => {
     //changes the chosen product
     chosenProduct = products[index];
     trackUserInteraction(chosenProduct.title);
+    trackUserInteractionWithPartitionedAdServer(chosenProduct.title);
 
     //changes the texts of current product
     currentProductTitle.textContent = chosenProduct.title.toUpperCase();
