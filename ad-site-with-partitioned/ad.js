@@ -30,12 +30,12 @@ app.get('/', (req, res) => res.send('Hello World!'))
 // API to get a session ID
 app.post('/api/get-session-id', (req, res) => {
    
-    if (!req.cookies['sessionID']) {
+    if (!req.cookies['partitionedSessionID']) {
 
         // Generate a session ID (you can replace this with a more robust method)
         const sessionID = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-        res.setHeader('Set-Cookie', 'sessionID=' + sessionID + '; SameSite=None; Secure; Path=/; Partitioned;');
-        res.json({ sessionID });
+        res.setHeader('Set-Cookie', 'partitionedSessionID=' + sessionID + '; SameSite=None; Secure; Path=/; Partitioned;');
+        res.json({ partitionedSessionID });
     }
 });
 
@@ -46,14 +46,14 @@ app.post('/api/track-user-behavior', (req, res) => {
     console.log(req.body);
     
     var sessionID;
-    if (!req.cookies['sessionID']) {
+    if (!req.cookies['partitionedSessionID']) {
         console.log("Session ID is not available");
         return res.json({ message: 'User behavior data received and stored.' });
     }
 
-    console.log("Storing the user behavior for Session ID" + req.cookies['sessionID']);
+    console.log("Storing the user behavior for Session ID" + req.cookies['partitionedSessionID']);
     const behaviorData = {
-        sessionID: req.cookies['sessionID'],
+        sessionID: req.cookies['partitionedSessionID'],
         behaviorData: req.body
     }
     console.log("User Behavior");
@@ -73,12 +73,12 @@ app.get('/api/get-personalized-ads', function (req, res) {
     var randomFileName = 'salesforce.png';
 
     // Specify the directory containing your files
-    if (!req.cookies['sessionID']) {
+    if (!req.cookies['partitionedSessionID']) {
         console.log("Session ID not available and setting a new one");
         const sessionID = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-        res.setHeader('Set-Cookie', 'sessionID=' + sessionID + '; SameSite=None; Secure; Max-Age=86400; Path=/; Partitioned;');
+        res.setHeader('Set-Cookie', 'partitionedSessionID=' + sessionID + '; SameSite=None; Secure; Max-Age=86400; Path=/; Partitioned;');
     } else {
-        const sessionID = req.cookies['sessionID'];
+        const sessionID = req.cookies['partitionedSessionID'];
         console.log("Session ID is available" + sessionID);
         const productNames = getProductNamesForSessionIDs(sessionID);
         const randomIndex = Math.floor(Math.random() * productNames.length);
