@@ -215,7 +215,7 @@ nav {
 
 .footerAd {
   margin: auto;
-  display: block;
+  display: block !important;
 }
   
 .adBanner,
