@@ -118,7 +118,7 @@ function trackUserInteractionWithPartitionedAdServer(productViewed) {
     productName: productViewed,
     timestamp: new Date()
   };
-  const uri = 'https://3.91.29.6.nip.io/api/track-user-behavior';
+  const uri = 'https://34.229.198.15.nip.io/api/track-user-behavior';
   // Send the data to the Advertisement Site via an API call
   fetch(uri, {
     method: 'POST',
