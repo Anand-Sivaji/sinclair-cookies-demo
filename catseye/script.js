@@ -27,23 +27,23 @@ const products = [
   },
   {
     id: 3,
-    title: 'Oakley',
-    price: 129,
+    title: 'Warby Parker',
+    price: 99,
     colors: [
       {
         code: 'lightgray',
-        img: './images/oakley.png',
+        img: './images/warby_parker.png',
       }
     ],
   },
   {
     id: 4,
-    title: 'Warby Parker',
+    title: 'Oakley',
     price: 129,
     colors: [
       {
         code: 'black',
-        img: './images/warby_parker.png',
+        img: './images/oakley.png',
       }
     ],
   }
