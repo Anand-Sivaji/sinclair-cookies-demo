@@ -14,7 +14,7 @@ app.use(express.json());
 const allowedOrigins = [
     'http://localhost:3001',
     'http://54.226.245.143:3001',
-    'http://54.158.247.205:3002/'
+    'http://54.158.247.205:3002'
 ];
 
 // Enable CORS with the array of allowed origins
