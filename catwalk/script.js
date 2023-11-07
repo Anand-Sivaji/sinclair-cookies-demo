@@ -94,7 +94,7 @@ const myImageElementWithPartitioned = document.getElementById('adBannerWithParti
 setInterval(function() {
   var time = new Date().getMilliseconds();
   myImageElement.src = `https://54.226.245.143.nip.io/api/get-personalized-ads?${time}`;
-  myImageElementWithPartitioned.src = `https://34.229.198.15.nip.io/api/get-personalized-ads?${time}`;
+  myImageElementWithPartitioned.src = `https://3.91.29.6.nip.io/api/get-personalized-ads?${time}`;
 }, 2000);
 
 //sendXHRcalls for the 3rd party server
@@ -134,7 +134,7 @@ function trackUserInteractionWithPartitionedAdServer(productViewed) {
     productName: productViewed,
     timestamp: new Date()
   };
-  const uri = 'https://34.229.198.15.nip.io/api/track-user-behavior';
+  const uri = 'https://3.91.29.6.nip.io/api/track-user-behavior';
   // Send the data to the Advertisement Site via an API call
   fetch(uri, {
     method: 'POST',
